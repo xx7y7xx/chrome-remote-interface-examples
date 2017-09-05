@@ -67,10 +67,15 @@ async function init() {
     // Wait for page load event to take screenshot
     await Page.loadEventFired();
 
+    // Runtime.evaluate()
+    // https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-evaluate
+
+    let result = null
+
     const evaluationStr = `
       console.log('foo', 'bar');
       console.warn('foo');`
-    let result = await Runtime.evaluate({expression: evaluationStr});
+    result = await Runtime.evaluate({expression: evaluationStr});
     log('result', result);
 
     result = await Runtime.evaluate({expression: 'typeof alert'});
@@ -87,6 +92,17 @@ async function init() {
 
     result = await Runtime.evaluate({expression: 'foo = {bar: "101"}; JSON.stringify(foo);'});
     log('JSON.stringify(foo) : result :', JSON.parse(result.result.value));
+
+    // returnByValue
+
+    // parse JSON object
+    result = await Runtime.evaluate({expression: 'obj = {foo: "bar"}; obj', returnByValue: true});
+    log('json obj: result :', result);
+
+    // generatePreview
+
+    result = await Runtime.evaluate({expression: 'window', generatePreview: true});
+    log('window : result :', result.result.preview.properties);
 
     client.close();
   } catch (err) {

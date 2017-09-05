@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "runtime": "node runtime.js",
+    "runtime.evaluate": "node runtime.evaluate.js",
+    "runtime.getproperties": "node runtime.getproperties.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "d3vin.chen@gmail.com",
