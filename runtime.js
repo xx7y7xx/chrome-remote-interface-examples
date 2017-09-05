@@ -85,6 +85,9 @@ async function init() {
     result = await Runtime.evaluate({expression: 'foo = {bar: "101"}; JSON.stringify(foo);'});
     log('JSON.stringify(foo) : result :', result);
 
+    result = await Runtime.evaluate({expression: 'foo = {bar: "101"}; JSON.stringify(foo);'});
+    log('JSON.stringify(foo) : result :', JSON.parse(result.result.value));
+
     client.close();
   } catch (err) {
     if (client) {
